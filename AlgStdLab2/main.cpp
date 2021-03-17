@@ -147,6 +147,11 @@ bool InputValue(int& value)
 	}
 	return true;
 }
+
+void output(node * h, int height)
+{
+
+}
 int main()
 {
 	setlocale(LC_ALL, "ru");
