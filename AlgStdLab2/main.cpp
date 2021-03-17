@@ -148,10 +148,37 @@ bool InputValue(int& value)
 	return true;
 }
 
-void output(node * h, int height)
-{
 
+int deep_tree(node * p)
+{
+	int k1, k2;
+
+	if (p == NULL)
+		return 0;
+	k1 = deep_tree(p->left);
+	k2 = deep_tree(p->right);
+
+	if (k1 > k2)
+		return (k1 + 1);
+
+	return (k2 + 1);
 }
+void output(node * p, int n)
+{
+	if (p == NULL)
+		return;
+
+	if (n == 1)
+	{
+		cout << " " << p->key << " "; //вывод значения
+		return;
+	}
+	output(p->left, n - 1); //рекурсивные вызовы
+	output(p->right, n - 1);
+	return;
+}
+
+
 int main()
 {
 	setlocale(LC_ALL, "ru");
@@ -180,14 +207,14 @@ int main()
 	{
 		test = insert(test, numbers[i]);
 	}
+	int deep = deep_tree(test);
 
-
-
-
-
-
-
-
+	for (int i = 1; i <= deep; i++)
+	{
+		output(test, i);
+		cout << endl;
+	}
+	
 
 	return 0;
 }
