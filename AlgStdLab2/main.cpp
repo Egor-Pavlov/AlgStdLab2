@@ -114,39 +114,75 @@ node* remove(node* p, int k) // удаление ключа k из дерева p
 	return balance(p);
 }
 
-// ввод
-void input(vector<int>& numbers)
+bool InputValue(int& value)
 {
 	string input;
-		cout << "Введите числа:" << endl;
+	bool flag = true;
 	while (true)
 	{
 		getline(cin, input);
-		for (char ch : input)
+		flag = true;
+		if (input == "")
 		{
-			if (!isdigit(ch))
-				return;
+			return false;
 		}
-		numbers.push_back(stoi(input));
+		else
+		{
+			for (int i = 0; i < input.length(); i++)
+			{
+				if (!isdigit(input[i]))
+				{
+					flag = false;
+					break;
+				}
+			}
+			if (flag)
+			{
+				if (stoi(input) > 0)
+					value = stoi(input);
+				break;
+			}
+		}
+		cout << "Введен недопустимый символ! Повторите ввод!" << endl;
 	}
+	return true;
 }
-
 int main()
 {
+	setlocale(LC_ALL, "ru");
 	node* test;
 	vector<int> numbers;
+	int value;
 	
 	cout << "Введите числа:" << endl;
 	
-	input(numbers);
-	for (int i = 0; i < numbers.size(); i++)
+	while (true)
 	{
-		if (i == 0)
-			test = new node(numbers[i]);
-
+		if (InputValue(value))
+		{
+			numbers.push_back(value);
+		}
 		else
-			insert(test, numbers[i]);
+		{
+			break;
+		}
+
 	}
+	
+	test = new node(numbers[0]);
+
+	for (int i = 1; i < numbers.size(); i++)
+	{
+		test = insert(test, numbers[i]);
+	}
+
+
+
+
+
+
+
+
 
 	return 0;
 }
